@@ -2,6 +2,7 @@
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
+using System.Text;
 
 namespace TcpEchoServer
 {
@@ -14,35 +15,44 @@ namespace TcpEchoServer
             TcpListener listener = null;
             TcpClient client = null;
             NetworkStream networkStream = null;
-            StreamReader reader = null;
-            StreamWriter writer = null;
 
             try
             {
-                listener = new TcpListener(IPAddress.Any, listenOnPort);
-                listener.Start();
-                Console.WriteLine($"Starts listening on port: {listenOnPort}");
+                try
+                {
+                    listener = new TcpListener(IPAddress.Any, listenOnPort);
+                    listener.Start();
+                    Console.WriteLine($"Starts listening on port: {listenOnPort}");
+                }
+                catch (SocketException ex)
+                {
+                    Console.WriteLine("Misslyckades att öppna socket. Troligtvis upptagen.");
+                    Environment.Exit(1);
+                }
+                
+                
 
                 while (true)
                 {
                     // listener.Pending() Kolla om det finns någon på kö
                     client = listener.AcceptTcpClient();
-
+                    networkStream = client.GetStream();
                     Console.WriteLine($"Ny TcpClient...");
 
-                    networkStream = client.GetStream();
+                    byte[] receiveBuffer = new byte[32];
+                    int receivedBytes;
+                    int totalBytes = 0;
 
-                    reader = new StreamReader(networkStream);
-                    writer = new StreamWriter(networkStream);
-
-                    while (true)
+                    while ((receivedBytes = networkStream.Read(receiveBuffer, 0, receiveBuffer.Length)) > 0)
                     {
-                        var data = reader.ReadLine();
-                        writer.WriteLine("ECHO: " + data);
-                        writer.Flush();
-                        Console.WriteLine("ECHO: " + data);
+                        networkStream.Write(receiveBuffer, 0, receivedBytes);
+                        Console.WriteLine("Mottagit:"+ Encoding.ASCII.GetString(receiveBuffer,0, receivedBytes));
+                        totalBytes += receivedBytes;
                     }
 
+                    Console.WriteLine($"Done. Echoed {totalBytes} bytes.");
+                    networkStream.Close();
+                    client.Close();
 
 
                 }
