@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DnsAndPing", "DnsAndPing\Dn
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TcpClient1", "TcpClient1\TcpClient1.csproj", "{BAF14519-3A4A-4A9E-9B4C-CA4419C48D10}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TcpEchoServer", "TcpEchoServer\TcpEchoServer.csproj", "{BED405F5-7E60-4BC8-8645-C34EBE75F206}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{BAF14519-3A4A-4A9E-9B4C-CA4419C48D10}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BAF14519-3A4A-4A9E-9B4C-CA4419C48D10}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BAF14519-3A4A-4A9E-9B4C-CA4419C48D10}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BED405F5-7E60-4BC8-8645-C34EBE75F206}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BED405F5-7E60-4BC8-8645-C34EBE75F206}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BED405F5-7E60-4BC8-8645-C34EBE75F206}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BED405F5-7E60-4BC8-8645-C34EBE75F206}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
